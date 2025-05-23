@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Heart, Shield } from "lucide-react";
+import { ArrowRight, Sparkles, Heart, Shield, Star, Users, Award } from "lucide-react";
 
 type HeroSectionProps = {
   onBookNow: () => void;
@@ -8,146 +8,225 @@ type HeroSectionProps = {
 
 export default function HeroSection({ onBookNow }: HeroSectionProps) {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-orange-50">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
+    <section className="relative min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 overflow-hidden">
+      {/* Animated Mesh Background */}
+      <div className="absolute inset-0">
         <motion.div
-          className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-3xl"
+          className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-full blur-3xl"
           animate={{
-            scale: [1, 1.2, 1],
-            rotate: [0, 180, 360],
+            x: [0, 100, 0],
+            y: [0, -50, 0],
           }}
           transition={{
             duration: 20,
             repeat: Infinity,
-            ease: "linear",
+            ease: "easeInOut",
           }}
         />
         <motion.div
-          className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-accent/20 to-primary/20 rounded-full blur-3xl"
+          className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-l from-accent/20 to-primary/20 rounded-full blur-3xl"
           animate={{
-            scale: [1.2, 1, 1.2],
-            rotate: [360, 180, 0],
+            x: [0, -80, 0],
+            y: [0, 40, 0],
           }}
           transition={{
             duration: 25,
             repeat: Infinity,
-            ease: "linear",
+            ease: "easeInOut",
           }}
         />
       </div>
 
-      <div className="container relative z-10 pt-20">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+      <div className="container relative z-10 min-h-screen flex items-center justify-center py-20">
+        <div className="max-w-6xl mx-auto">
           
-          {/* Content Side */}
-          <motion.div 
-            className="lg:w-1/2 text-center lg:text-left"
-            initial={{ opacity: 0, y: 50 }}
+          {/* Main Content Card */}
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0, y: 80 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            transition={{ duration: 1, ease: "easeOut" }}
           >
-            
-            {/* Badge */}
+            {/* Central Hero Card */}
+            <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl p-8 md:p-12 lg:p-16 border border-white/20">
+              
+              {/* Header Badge */}
+              <motion.div
+                className="text-center mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+              >
+                <div className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/30 mb-6">
+                  <Award className="w-5 h-5 text-primary mr-3" />
+                  <span className="text-base font-semibold text-primary">Registered Dietitian Nutritionist</span>
+                </div>
+              </motion.div>
+
+              {/* Main Heading - Centered */}
+              <motion.div
+                className="text-center mb-12"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
+              >
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold font-heading mb-6 leading-tight">
+                  <span className="block text-slate-800 mb-2">Transform Your</span>
+                  <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                    Health Journey
+                  </span>
+                  <span className="block text-slate-600 text-4xl md:text-5xl lg:text-6xl mt-4">
+                    With Expert Nutrition Therapy
+                  </span>
+                </h1>
+                
+                <motion.p
+                  className="text-xl md:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.7, duration: 0.6 }}
+                >
+                  Evidence-based Medical Nutrition Therapy with a <span className="font-semibold text-primary">compassionate, personalized approach</span>. 
+                  Create lasting wellness that spans generations.
+                </motion.p>
+              </motion.div>
+
+              {/* Stats Row */}
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8, duration: 0.6 }}
+              >
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-primary mb-2">10+</div>
+                  <div className="text-slate-600 font-medium">Years Experience</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-secondary mb-2">500+</div>
+                  <div className="text-slate-600 font-medium">Clients Helped</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-accent mb-2">95%</div>
+                  <div className="text-slate-600 font-medium">Success Rate</div>
+                </div>
+              </motion.div>
+
+              {/* CTA Section */}
+              <motion.div
+                className="text-center mb-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, duration: 0.6 }}
+              >
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <Button
+                    onClick={onBookNow}
+                    size="lg"
+                    className="group bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold py-6 px-10 rounded-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl text-lg"
+                  >
+                    Start Your Health Transformation
+                    <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="border-2 border-slate-300 hover:border-primary text-slate-700 hover:text-primary hover:bg-primary/5 py-6 px-10 rounded-2xl transition-all duration-300 text-lg"
+                  >
+                    Learn Our Method
+                  </Button>
+                </div>
+              </motion.div>
+
+              {/* Trust Indicators */}
+              <motion.div
+                className="flex flex-wrap justify-center gap-8 pt-8 border-t border-slate-200"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.2, duration: 0.6 }}
+              >
+                <div className="flex items-center text-slate-600">
+                  <Shield className="w-5 h-5 text-primary mr-3" />
+                  <span className="font-medium">Evidence-Based Care</span>
+                </div>
+                <div className="flex items-center text-slate-600">
+                  <Heart className="w-5 h-5 text-secondary mr-3" />
+                  <span className="font-medium">Compassionate Approach</span>
+                </div>
+                <div className="flex items-center text-slate-600">
+                  <Sparkles className="w-5 h-5 text-accent mr-3" />
+                  <span className="font-medium">Lasting Results</span>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Floating Cards */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 mb-6"
+              className="absolute -top-6 -left-6 bg-white rounded-2xl shadow-xl p-6 border border-primary/10 hidden lg:block"
+              initial={{ opacity: 0, x: -50, y: -20 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ delay: 1.4, duration: 0.8 }}
+              whileHover={{ y: -10, transition: { duration: 0.2 } }}
             >
-              <Sparkles className="w-4 h-4 text-primary mr-2" />
-              <span className="text-sm font-medium text-primary">Registered Dietitian Nutritionist</span>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <div className="font-bold text-slate-800">Virtual Consultations</div>
+                  <div className="text-sm text-slate-600">Available Nationwide</div>
+                </div>
+              </div>
             </motion.div>
 
-            {/* Main Heading */}
-            <motion.h1 
-              className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold font-heading mb-6 leading-tight"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-            >
-              <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                Medical Nutrition
-              </span>
-              <br />
-              <span className="text-neutral-800">
-                Therapy for
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
-                Lasting Wellness
-              </span>
-            </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p 
-              className="text-lg md:text-xl text-neutral-600 mb-8 max-w-2xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-            >
-              Evidence-based nutrition care with a <span className="font-semibold text-primary">compassionate, personalized approach</span>. Build sustainable habits that support your health conditions and create generational wellness.
-            </motion.p>
-
-            {/* Trust Indicators */}
             <motion.div
-              className="flex flex-wrap justify-center lg:justify-start gap-6 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
+              className="absolute -top-6 -right-6 bg-white rounded-2xl shadow-xl p-6 border border-secondary/10 hidden lg:block"
+              initial={{ opacity: 0, x: 50, y: -20 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ delay: 1.6, duration: 0.8 }}
+              whileHover={{ y: -10, transition: { duration: 0.2 } }}
             >
-              <div className="flex items-center text-sm text-neutral-600">
-                <Shield className="w-4 h-4 text-primary mr-2" />
-                Evidence-Based Care
-              </div>
-              <div className="flex items-center text-sm text-neutral-600">
-                <Heart className="w-4 h-4 text-secondary mr-2" />
-                Compassionate Approach
-              </div>
-              <div className="flex items-center text-sm text-neutral-600">
-                <Sparkles className="w-4 h-4 text-accent mr-2" />
-                Lasting Results
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-secondary to-accent rounded-full flex items-center justify-center">
+                  <Star className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <div className="font-bold text-slate-800">5-Star Rated</div>
+                  <div className="text-sm text-slate-600">Client Reviews</div>
+                </div>
               </div>
             </motion.div>
 
-            {/* CTA Buttons */}
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-              initial={{ opacity: 0, y: 20 }}
+            <motion.div
+              className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-white rounded-2xl shadow-xl p-6 border border-accent/10 hidden lg:block"
+              initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
+              transition={{ delay: 1.8, duration: 0.8 }}
+              whileHover={{ y: -10, transition: { duration: 0.2 } }}
             >
-              <Button 
-                onClick={onBookNow}
-                size="lg"
-                className="group bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
-              >
-                Schedule Your Consultation
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button 
-                variant="outline"
-                size="lg"
-                className="border-2 border-primary/20 hover:border-primary/40 text-primary hover:bg-primary/5 py-4 px-8 rounded-xl transition-all duration-300 backdrop-blur-sm"
-              >
-                Learn About Our Approach
-              </Button>
+              <div className="text-center">
+                <div className="w-12 h-12 bg-gradient-to-r from-accent to-primary rounded-full flex items-center justify-center mx-auto mb-2">
+                  <Sparkles className="w-6 h-6 text-white" />
+                </div>
+                <div className="font-bold text-slate-800">Free Initial Consultation</div>
+                <div className="text-sm text-slate-600">Get Started Today</div>
+              </div>
             </motion.div>
           </motion.div>
-          
-          {/* Image Side */}
-          <motion.div 
-            className="lg:w-1/2 relative"
-            initial={{ opacity: 0, scale: 0.8, x: 50 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+
+          {/* Bottom Image */}
+          <motion.div
+            className="mt-16 flex justify-center"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
           >
-            {/* Decorative elements */}
-            <div className="relative">
+            <div className="relative max-w-2xl">
               <motion.div
-                className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-3xl blur-xl"
+                className="absolute -inset-4 bg-gradient-to-r from-primary/30 to-secondary/30 rounded-3xl blur-2xl"
                 animate={{
                   scale: [1, 1.05, 1],
+                  opacity: [0.3, 0.5, 0.3],
                 }}
                 transition={{
                   duration: 4,
@@ -155,68 +234,15 @@ export default function HeroSection({ onBookNow }: HeroSectionProps) {
                   ease: "easeInOut",
                 }}
               />
-              
-              {/* Glass morphism card */}
-              <div className="relative backdrop-blur-sm bg-white/80 rounded-3xl p-8 shadow-2xl border border-white/20">
-                <motion.img 
-                  src="/images/gn-image-2.png" 
-                  alt="Generational Nutrition - Medical Nutrition Therapy" 
-                  className="w-full h-auto rounded-2xl shadow-lg" 
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                />
-                
-                {/* Floating stats */}
-                <motion.div
-                  className="absolute -top-4 -right-4 bg-white rounded-xl shadow-xl p-4 border border-primary/10"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.2, duration: 0.6 }}
-                  whileHover={{ y: -5 }}
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-semibold text-neutral-700">Available for Consultations</span>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="absolute -bottom-4 -left-4 bg-gradient-to-r from-primary to-secondary text-white rounded-xl shadow-xl p-4"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1.4, duration: 0.6 }}
-                  whileHover={{ y: -5 }}
-                >
-                  <div className="text-center">
-                    <div className="text-xl font-bold">10+</div>
-                    <div className="text-xs opacity-90">Years Experience</div>
-                  </div>
-                </motion.div>
-              </div>
+              <img
+                src="/images/gn-image-2.png"
+                alt="Generational Nutrition - Medical Nutrition Therapy"
+                className="relative rounded-2xl shadow-2xl w-full h-auto"
+              />
             </div>
           </motion.div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2, duration: 0.6 }}
-      >
-        <motion.div
-          className="w-6 h-10 border-2 border-primary/30 rounded-full flex justify-center"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <motion.div
-            className="w-1 h-3 bg-primary rounded-full mt-2"
-            animate={{ scaleY: [1, 0.3, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }
