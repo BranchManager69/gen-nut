@@ -41,7 +41,7 @@ export default function HeroSection({ onBookNow }: HeroSectionProps) {
           >
             <div className="relative">
               <img 
-                src="/images/gn-image-2.png" 
+                src="/images/logo.png" 
                 alt="Generational Nutrition - Medical Nutrition Therapy" 
                 className="w-full h-auto rounded-2xl shadow-lg max-w-lg mx-auto" 
               />
@@ -64,7 +64,7 @@ export default function HeroSection({ onBookNow }: HeroSectionProps) {
               transition={{ delay: 0.4, duration: 0.6 }}
             >
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-primary mb-4">
-                G.N.
+                Generational Nutrition
               </h1>
               <p className="text-xl md:text-2xl text-neutral-600 font-medium">
                 Medical Nutrition Therapy
