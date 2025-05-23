@@ -12,7 +12,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   useEffect(() => {
-    document.title = "Generational Nutrition LLC | Medical Nutrition Therapy";
+    document.title = "Generational Nutrition LLC | Registered Dietitian | Medical Nutrition Therapy";
   }, []);
   
   // Refs for navigation

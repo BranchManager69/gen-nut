@@ -1,45 +1,40 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Check } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
-import { addDays, format } from "date-fns";
-import { useToast } from "@/hooks/use-toast";
+import { useEffect } from "react";
+
+declare global {
+  interface Window {
+    Calendly: any;
+  }
+}
 
 export default function BookingSection() {
-  const { toast } = useToast();
-  const [date, setDate] = useState<Date | undefined>(undefined);
-  const [timeSlot, setTimeSlot] = useState<string | undefined>(undefined);
-  const [service, setService] = useState<string>("");
+  useEffect(() => {
+    // Load Calendly embed script
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    document.body.appendChild(script);
 
-  const timeSlots = [
-    "9:00 AM",
-    "10:30 AM",
-    "1:00 PM",
-    "3:30 PM"
-  ];
+    return () => {
+      // Cleanup script when component unmounts
+      const existingScript = document.querySelector('script[src="https://assets.calendly.com/assets/external/widget.js"]');
+      if (existingScript) {
+        document.body.removeChild(existingScript);
+      }
+    };
+  }, []);
 
-  const handleBooking = () => {
-    if (!date || !timeSlot) {
-      toast({
-        title: "Booking incomplete",
-        description: "Please select both a date and time for your consultation.",
-        variant: "destructive"
+  const openCalendly = () => {
+    if (window.Calendly) {
+      window.Calendly.initPopupWidget({
+        url: 'https://calendly.com/nrsander/30min'
       });
-      return;
+    } else {
+      // Fallback if Calendly hasn't loaded
+      window.open('https://calendly.com/nrsander/30min', '_blank');
     }
-
-    toast({
-      title: "Booking confirmed!",
-      description: `Your free 15-minute consultation is scheduled for ${format(date, "MMMM d, yyyy")} at ${timeSlot}.`,
-      duration: 5000,
-    });
-
-    // Reset form
-    setDate(undefined);
-    setTimeSlot(undefined);
-    setService("");
   };
 
   return (
@@ -53,36 +48,36 @@ export default function BookingSection() {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold font-heading text-primary mb-4">
-            Book a Free 15-Minute Consultation
+            Schedule Your First Session
           </h2>
           <p className="text-lg text-neutral-800">
-            Schedule a complimentary call to discuss your nutrition needs and see if we're a good fit to work together.
+            Begin your personalized nutrition journey with a comprehensive consultation designed to understand your unique needs and create a plan that fits your life.
           </p>
         </motion.div>
         
         <div className="max-w-4xl mx-auto bg-neutral-200 rounded-xl shadow-md overflow-hidden">
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/3 bg-primary p-6 text-white">
-              <h3 className="text-xl font-semibold font-heading mb-4">What to Expect</h3>
+              <h3 className="text-xl font-semibold font-heading mb-4">What to Expect in Your First Session</h3>
               <ul className="space-y-3">
-                {["Brief discussion of your health goals", 
-                  "Overview of how I can help", 
-                  "Opportunity to ask questions", 
-                  "No obligation to continue"].map((item, index) => (
+                {["Get to know you—not just your health history, but your life as a whole", 
+                  "Understand your lifestyle, routines, and challenges", 
+                  "Explore what you're hoping to achieve through nutrition counseling", 
+                  "Begin mapping out a personalized, realistic care plan"].map((item, index) => (
                   <li key={index} className="flex items-start">
                     <Check className="h-5 w-5 text-accent mr-2 flex-shrink-0 mt-0.5" />
-                    <span>{item}</span>
+                    <span className="text-sm">{item}</span>
                   </li>
                 ))}
               </ul>
               
               <div className="mt-6 pt-6 border-t border-blue-400">
-                <h4 className="font-medium mb-2">Available Services:</h4>
-                <ul className="space-y-2">
-                  {["Initial Nutrition Assessment", 
-                    "Follow-up Consultations", 
-                    "Meal Planning Sessions", 
-                    "Group Programs"].map((service, index) => (
+                <h4 className="font-medium mb-2">Specialized Care Areas:</h4>
+                <ul className="space-y-2 text-sm">
+                  {["Diabetes Management", 
+                    "Chronic Kidney Disease", 
+                    "Cardiovascular Disease", 
+                    "Gastrointestinal Disorders"].map((service, index) => (
                     <li key={index}>{service}</li>
                   ))}
                 </ul>
@@ -90,54 +85,28 @@ export default function BookingSection() {
             </div>
             
             <div className="md:w-2/3 p-6">
-              <div className="bg-white rounded-lg p-4 h-full flex flex-col justify-center items-center">
-                <div className="text-center py-4 w-full max-w-md">
-                  <div className="text-4xl text-primary mb-4 flex justify-center">
-                    <Calendar
-                      mode="single"
-                      selected={date}
-                      onSelect={setDate}
-                      className="rounded border"
-                      disabled={(date) => date < new Date() || date > addDays(new Date(), 30)}
-                    />
-                  </div>
+              <div className="bg-white rounded-lg p-8 h-full flex flex-col justify-center items-center">
+                <div className="text-center py-8 w-full max-w-md">
+                  <div className="text-6xl text-primary mb-6">📅</div>
                   
-                  <h3 className="text-xl font-semibold font-heading mb-2">Select a Time</h3>
+                  <h3 className="text-2xl font-semibold font-heading mb-4 text-primary">
+                    Ready to Get Started?
+                  </h3>
                   
-                  <div className="grid grid-cols-2 gap-2 my-4">
-                    {timeSlots.map((time) => (
-                      <Button
-                        key={time}
-                        variant={timeSlot === time ? "default" : "outline"}
-                        className={`py-2 rounded text-sm transition-colors ${
-                          timeSlot === time ? "bg-primary text-white" : "bg-neutral-200 hover:bg-primary hover:text-white"
-                        }`}
-                        onClick={() => setTimeSlot(time)}
-                      >
-                        {time}
-                      </Button>
-                    ))}
-                  </div>
-                  
-                  <div className="mt-4 mb-6">
-                    <Select value={service} onValueChange={setService}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select service type (optional)" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="initial">Initial Consultation</SelectItem>
-                        <SelectItem value="followup">Follow-up Session</SelectItem>
-                        <SelectItem value="mealplan">Meal Planning</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
+                  <p className="text-gray-600 mb-8">
+                    Click below to view available time slots and book your free consultation instantly.
+                  </p>
                   
                   <Button
-                    onClick={handleBooking}
-                    className="bg-accent hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-lg transition-all transform hover:scale-105 w-full"
+                    onClick={openCalendly}
+                    className="bg-accent hover:bg-opacity-90 text-white font-medium py-4 px-8 rounded-lg transition-all transform hover:scale-105 w-full text-lg"
                   >
-                    Confirm Booking
+                    Schedule Your Free Consultation
                   </Button>
+                  
+                  <p className="text-sm text-gray-500 mt-4">
+                    Choose from available time slots that work best for you
+                  </p>
                 </div>
               </div>
             </div>

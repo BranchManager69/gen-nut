@@ -17,16 +17,16 @@ export default function HeroSection({ onBookNow }: HeroSectionProps) {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-heading text-primary mb-4">
-              Transform Your Health Through Nutrition
+              Medical Nutrition Therapy for Lasting Wellness
             </h1>
             <p className="text-xl text-neutral-800 mb-8">
-              Personalized medical nutrition therapy to help you achieve lasting health improvements and wellness goals.
+              Evidence-based nutrition care with a compassionate, personalized approach. Build sustainable habits that support your health conditions and create generational wellness.
             </p>
             <Button 
               onClick={onBookNow}
               className="bg-accent hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-lg transition-all transform hover:scale-105 shadow-md"
             >
-              Book Free Consultation
+              Schedule Your Consultation
             </Button>
           </motion.div>
           
@@ -37,8 +37,8 @@ export default function HeroSection({ onBookNow }: HeroSectionProps) {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <img 
-              src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
-              alt="Nutrition consultation session" 
+              src="/images/gn-image-2.png" 
+              alt="Generational Nutrition - Medical Nutrition Therapy" 
               className="rounded-lg shadow-xl w-full h-auto" 
             />
           </motion.div>

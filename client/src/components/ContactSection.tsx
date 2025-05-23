@@ -8,10 +8,18 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { contactSchema } from "@/lib/validators";
-import { useMutation } from "@tanstack/react-query";
-import { apiRequest } from "@/lib/queryClient";
-import { MapPin, Clock, Headphones, Upload } from "lucide-react";
+import { MapPin, Clock, Headphones, Upload, X } from "lucide-react";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().min(1, "Full name is required"),
+  email: z.string().email("Invalid email address"),
+  phone: z.string().optional(),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+  consent: z.boolean().refine(val => val === true, {
+    message: "You must consent to us storing your information"
+  })
+});
 
 type ContactFormValues = {
   name: string;
@@ -24,6 +32,7 @@ type ContactFormValues = {
 export default function ContactSection() {
   const { toast } = useToast();
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -36,55 +45,47 @@ export default function ContactSection() {
     }
   });
   
-  const mutation = useMutation({
-    mutationFn: async (values: ContactFormValues) => {
-      // Create a FormData object to handle files
+  const onSubmit = async (values: ContactFormValues) => {
+    setIsSubmitting(true);
+    try {
       const formData = new FormData();
+      formData.append('name', values.name);
+      formData.append('email', values.email);
+      formData.append('phone', values.phone || '');
+      formData.append('message', values.message);
+      formData.append('_subject', 'New Contact Form Submission');
+      formData.append('_replyto', values.email);
       
-      // Append form values
-      Object.entries(values).forEach(([key, value]) => {
-        formData.append(key, value.toString());
+      // Add uploaded files
+      uploadedFiles.forEach((file, index) => {
+        formData.append(`file_${index}`, file);
       });
-      
-      // Append files
-      uploadedFiles.forEach((file) => {
-        formData.append("documents", file);
-      });
-      
-      // Since we're using FormData, we need to handle this outside of apiRequest
-      const res = await fetch("/api/contact", {
-        method: "POST",
+
+      const response = await fetch('https://formspree.io/f/xovdzzpb', {
+        method: 'POST',
         body: formData,
-        credentials: "include",
       });
-      
-      if (!res.ok) {
-        const text = await res.text() || res.statusText;
-        throw new Error(`${res.status}: ${text}`);
+
+      if (response.ok) {
+        toast({
+          title: "Message sent!",
+          description: "Thank you for reaching out. We'll get back to you soon.",
+          duration: 5000,
+        });
+        form.reset();
+        setUploadedFiles([]);
+      } else {
+        throw new Error('Network response was not ok');
       }
-      
-      return res;
-    },
-    onSuccess: () => {
-      toast({
-        title: "Message sent!",
-        description: "Thank you for reaching out. We'll get back to you soon.",
-        duration: 5000,
-      });
-      form.reset();
-      setUploadedFiles([]);
-    },
-    onError: (error) => {
+    } catch (error) {
       toast({
         title: "Submission failed",
-        description: `${error}`,
+        description: "Please try again or email us directly.",
         variant: "destructive",
       });
+    } finally {
+      setIsSubmitting(false);
     }
-  });
-  
-  const onSubmit = (values: ContactFormValues) => {
-    mutation.mutate(values);
   };
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,7 +121,7 @@ export default function ContactSection() {
           <div className="flex flex-col lg:flex-row bg-white rounded-xl shadow-lg overflow-hidden">
             <div className="lg:w-1/3 bg-primary text-white p-8">
               <h2 className="text-3xl font-bold font-heading mb-6">Let's Connect</h2>
-              <p className="mb-8">Have questions or ready to start your nutrition journey? Reach out and I'll get back to you soon.</p>
+              <p className="mb-8">Ready to start your nutrition journey? Reach out to discuss how Medical Nutrition Therapy can support your health goals.</p>
               
               <div className="space-y-6">
                 <div className="flex items-start">
@@ -128,7 +129,7 @@ export default function ContactSection() {
                     <MapPin className="h-6 w-6" />
                   </div>
                   <div>
-                    <h3 className="font-medium mb-1">Location</h3>
+                    <h3 className="font-medium mb-1">Service Area</h3>
                     <p className="opacity-90">Virtual consultations available nationwide</p>
                   </div>
                 </div>
@@ -138,8 +139,8 @@ export default function ContactSection() {
                     <Clock className="h-6 w-6" />
                   </div>
                   <div>
-                    <h3 className="font-medium mb-1">Hours</h3>
-                    <p className="opacity-90">Monday - Friday: 9AM - 5PM<br/>Saturday: By appointment</p>
+                    <h3 className="font-medium mb-1">Response Time</h3>
+                    <p className="opacity-90">Initial consultations typically scheduled within 1-2 weeks</p>
                   </div>
                 </div>
                 
@@ -149,7 +150,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <h3 className="font-medium mb-1">Support</h3>
-                    <p className="opacity-90">Email responses within 24 hours<br/>Quick scheduling for urgent needs</p>
+                    <p className="opacity-90">Compassionate, personalized care with ongoing support throughout your journey</p>
                   </div>
                 </div>
               </div>
@@ -301,9 +302,9 @@ export default function ContactSection() {
                   <Button 
                     type="submit"
                     className="bg-primary hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-lg transition-all transform hover:scale-105"
-                    disabled={mutation.isPending}
+                    disabled={isSubmitting}
                   >
-                    {mutation.isPending ? "Submitting..." : "Submit Form"}
+                    {isSubmitting ? "Submitting..." : "Submit Form"}
                   </Button>
                 </form>
               </Form>

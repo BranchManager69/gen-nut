@@ -16,25 +16,25 @@ export default function ReviewsSection() {
   
   const reviews: Review[] = [
     {
-      initials: "JD",
+      initials: "NS",
       stars: 5,
-      quote: "Working with Generational Nutrition changed my relationship with food. I've finally found a sustainable approach to eating that supports my health conditions while still enjoying meals.",
-      name: "Jane D.",
+      quote: "Working with Renee changed my relationship with food. I've finally found a sustainable approach to eating that supports my health conditions while still enjoying meals.",
+      name: "Nick S.",
       duration: "Client for 8 months"
     },
     {
       initials: "RS",
       stars: 5,
-      quote: "After struggling with digestive issues for years, the personalized nutrition plan helped me identify trigger foods and rebuild a diet that works for my body. My symptoms have improved dramatically.",
+      quote: "After struggling with digestive issues for years, Renee's personalized nutrition plan helped me identify trigger foods and rebuild a diet that works for my body. My symptoms have improved dramatically.",
       name: "Robert S.",
       duration: "Client for 1 year"
     },
     {
       initials: "MT",
       stars: 4.5,
-      quote: "The consultation process was so thorough. Instead of generic advice, I received a plan that considered my medical history, lifestyle, and preferences. It's been easy to follow and the results speak for themselves.",
+      quote: "Renee's consultation process was so thorough. Instead of generic advice, I received a plan that considered my medical history, lifestyle, and preferences. It's been easy to follow and the results speak for themselves.",
       name: "Maria T.",
-      duration: "Client for 6 months"
+      duration: "Client for 4 months"
     }
   ];
   

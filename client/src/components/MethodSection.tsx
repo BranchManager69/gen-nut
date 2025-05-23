@@ -1,42 +1,55 @@
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import AssessmentModal from "./AssessmentModal";
 
 export default function MethodSection() {
+  const [showAssessment, setShowAssessment] = useState(false);
+
+  const openAssessment = () => {
+    // Option 1: Use the in-page modal
+    setShowAssessment(true);
+    
+    // Option 2: Use external form (uncomment to use instead)
+    // window.open('https://forms.gle/YOUR_GOOGLE_FORM_ID', '_blank');
+  };
+
   const steps = [
     {
       number: 1,
       title: "Identify",
       color: "bg-primary",
-      description: "Through comprehensive assessment and analysis, we identify your current nutritional status, health concerns, and goals.",
+      description: "Through comprehensive assessment and conversation, we identify your unique needs, current routine, medical history, and vision for change.",
       items: [
-        "Health history evaluation",
-        "Dietary pattern analysis",
-        "Lab result interpretation (if available)",
-        "Goal setting and prioritization"
+        "Complete health and nutrition assessment",
+        "Understanding your lifestyle and preferences",
+        "Identifying barriers and challenges",
+        "Setting realistic, collaborative goals"
       ]
     },
     {
       number: 2,
-      title: "Generate & Establish",
+      title: "Create",
       color: "bg-secondary",
-      description: "Based on our findings, we create a personalized nutrition plan and establish practical strategies for implementation.",
+      description: "Together, we design a personalized care plan that aligns with your life, medical needs, and long-term wellness goals.",
       items: [
-        "Custom nutrition recommendations",
-        "Meal planning and preparation guidance",
-        "Supplement recommendations (if needed)",
-        "Habit formation strategies"
+        "Evidence-based nutrition interventions",
+        "Lifestyle modification strategies",
+        "Practical meal planning guidance",
+        "Sustainable habit formation techniques"
       ]
     },
     {
       number: 3,
       title: "Refine",
       color: "bg-accent",
-      description: "Through ongoing follow-up sessions, we monitor progress, make adjustments, and refine your plan for optimal results.",
+      description: "Through ongoing support and accountability, we monitor progress, make adjustments, and refine your approach for lasting success.",
       items: [
-        "Progress tracking and assessment",
-        "Troubleshooting challenges",
-        "Plan adjustments based on response",
-        "Long-term strategy development"
+        "Regular progress monitoring and evaluation",
+        "Plan adjustments based on your response",
+        "Problem-solving and strategy refinement",
+        "Building long-term maintenance skills"
       ]
     }
   ];
@@ -57,9 +70,13 @@ export default function MethodSection() {
           <p className="text-lg text-neutral-800 mb-6">
             A structured approach to transform your nutrition and health.
           </p>
-          <Badge variant="secondary" className="bg-secondary text-white py-2 px-6 rounded-full mb-8 text-base font-medium">
+          <Button 
+            onClick={openAssessment}
+            variant="secondary" 
+            className="bg-secondary text-white py-3 px-6 rounded-full mb-8 text-base font-medium hover:bg-secondary/90 transition-all transform hover:scale-105"
+          >
             Take an Assessment
-          </Badge>
+          </Button>
         </motion.div>
         
         <div className="max-w-5xl mx-auto">
@@ -92,6 +109,11 @@ export default function MethodSection() {
           </div>
         </div>
       </div>
+      
+      <AssessmentModal 
+        isOpen={showAssessment} 
+        onClose={() => setShowAssessment(false)} 
+      />
     </section>
   );
 }
