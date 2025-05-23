@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -115,66 +115,115 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="section-padding">
+    <section className="section-padding bg-gradient-to-br from-white to-neutral-50">
       <div className="container">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col lg:flex-row bg-white rounded-xl shadow-lg overflow-hidden">
-            <div className="lg:w-1/3 bg-primary text-white p-8">
-              <h2 className="text-3xl font-bold font-heading mb-6">Let's Connect</h2>
-              <p className="mb-8">Ready to start your nutrition journey? Reach out to discuss how Medical Nutrition Therapy can support your health goals.</p>
+          
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold font-heading text-primary mb-6">
+              Let's Connect
+            </h2>
+            <p className="text-xl text-neutral-700 leading-relaxed max-w-3xl mx-auto">
+              Ready to start your nutrition journey? Reach out to discuss how Medical Nutrition Therapy can support your health goals.
+            </p>
+          </motion.div>
+          
+          <div className="flex flex-col lg:flex-row bg-white rounded-2xl shadow-xl overflow-hidden border border-accent/10">
+            <motion.div 
+              className="lg:w-1/3 bg-gradient-to-br from-primary to-secondary text-white p-10"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h3 className="text-2xl font-bold font-heading mb-8 flex items-center">
+                <span className="w-3 h-3 bg-accent rounded-full mr-3"></span>
+                Get in Touch
+              </h3>
               
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="text-2xl mr-4 text-accent">
+              <div className="space-y-8">
+                <motion.div 
+                  className="flex items-start"
+                  whileHover={{ x: 10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="text-accent mr-4 mt-1">
                     <MapPin className="h-6 w-6" />
                   </div>
                   <div>
-                    <h3 className="font-medium mb-1">Service Area</h3>
-                    <p className="opacity-90">Virtual consultations available nationwide</p>
+                    <h4 className="font-bold mb-2 text-lg">Service Area</h4>
+                    <p className="opacity-90 leading-relaxed">Virtual consultations available nationwide</p>
                   </div>
-                </div>
+                </motion.div>
                 
-                <div className="flex items-start">
-                  <div className="text-2xl mr-4 text-accent">
+                <motion.div 
+                  className="flex items-start"
+                  whileHover={{ x: 10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="text-accent mr-4 mt-1">
                     <Clock className="h-6 w-6" />
                   </div>
                   <div>
-                    <h3 className="font-medium mb-1">Response Time</h3>
-                    <p className="opacity-90">Initial consultations typically scheduled within 1-2 weeks</p>
+                    <h4 className="font-bold mb-2 text-lg">Response Time</h4>
+                    <p className="opacity-90 leading-relaxed">Initial consultations typically scheduled within 1-2 weeks</p>
                   </div>
-                </div>
+                </motion.div>
                 
-                <div className="flex items-start">
-                  <div className="text-2xl mr-4 text-accent">
+                <motion.div 
+                  className="flex items-start"
+                  whileHover={{ x: 10 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <div className="text-accent mr-4 mt-1">
                     <Headphones className="h-6 w-6" />
                   </div>
                   <div>
-                    <h3 className="font-medium mb-1">Support</h3>
-                    <p className="opacity-90">Compassionate, personalized care with ongoing support throughout your journey</p>
+                    <h4 className="font-bold mb-2 text-lg">Support</h4>
+                    <p className="opacity-90 leading-relaxed">Compassionate, personalized care with ongoing support throughout your journey</p>
                   </div>
+                </motion.div>
+              </div>
+              
+              <div className="mt-8 pt-8 border-t border-white/20">
+                <div className="flex items-center space-x-4">
+                  <div className="h-1 flex-1 bg-gradient-to-r from-accent to-accent/30 rounded"></div>
+                  <span className="text-accent font-semibold">Evidence-Based Care</span>
+                  <div className="h-1 flex-1 bg-gradient-to-r from-accent/30 to-accent rounded"></div>
                 </div>
               </div>
-            </div>
+            </motion.div>
             
-            <div className="lg:w-2/3 p-8">
-              <h3 className="text-2xl font-bold font-heading text-primary mb-6">Send a Message</h3>
-              
+            <motion.div 
+              className="lg:w-2/3 p-10"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid md:grid-cols-2 gap-6">
                     <FormField
                       control={form.control}
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-medium text-neutral-800">Full Name</FormLabel>
+                          <FormLabel className="font-semibold text-neutral-800">Name *</FormLabel>
                           <FormControl>
                             <Input 
-                              placeholder="John Doe" 
-                              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none" 
+                              placeholder="Your full name" 
                               {...field} 
+                              className="border-neutral-300 focus:border-accent focus:ring-accent/20 rounded-lg"
                             />
                           </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -184,15 +233,16 @@ export default function ContactSection() {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-medium text-neutral-800">Email</FormLabel>
+                          <FormLabel className="font-semibold text-neutral-800">Email *</FormLabel>
                           <FormControl>
                             <Input 
                               type="email" 
-                              placeholder="john@example.com" 
-                              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none" 
+                              placeholder="your.email@example.com" 
                               {...field} 
+                              className="border-neutral-300 focus:border-accent focus:ring-accent/20 rounded-lg"
                             />
                           </FormControl>
+                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -203,15 +253,16 @@ export default function ContactSection() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-medium text-neutral-800">Phone</FormLabel>
+                        <FormLabel className="font-semibold text-neutral-800">Phone Number (Optional)</FormLabel>
                         <FormControl>
                           <Input 
                             type="tel" 
-                            placeholder="(123) 456-7890" 
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none" 
+                            placeholder="(555) 123-4567" 
                             {...field} 
+                            className="border-neutral-300 focus:border-accent focus:ring-accent/20 rounded-lg"
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
@@ -221,32 +272,32 @@ export default function ContactSection() {
                     name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel className="font-medium text-neutral-800">Message</FormLabel>
+                        <FormLabel className="font-semibold text-neutral-800">Message *</FormLabel>
                         <FormControl>
                           <Textarea 
-                            placeholder="How can I help you?" 
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:outline-none" 
-                            rows={4} 
+                            placeholder="Tell me about your health goals and how I can help you..." 
+                            className="min-h-[120px] border-neutral-300 focus:border-accent focus:ring-accent/20 rounded-lg resize-none" 
                             {...field} 
                           />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
                   
                   <div>
-                    <FormLabel className="font-medium text-neutral-800 block mb-2">Upload Documents (Optional)</FormLabel>
+                    <FormLabel className="font-semibold text-neutral-800 block mb-2">Upload Documents (Optional)</FormLabel>
                     <div 
-                      className="border border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:bg-neutral-200 transition-colors"
+                      className="border-2 border-dashed border-accent/30 hover:border-accent/60 rounded-xl p-6 text-center cursor-pointer hover:bg-accent/5 transition-all duration-300"
                       onClick={() => document.getElementById('fileUpload')?.click()}
                       onDragOver={handleDragOver}
                       onDrop={handleDrop}
                     >
-                      <div className="text-2xl text-primary mb-2 flex justify-center">
-                        <Upload className="h-6 w-6" />
+                      <div className="text-3xl text-accent mb-3 flex justify-center">
+                        <Upload className="h-8 w-8" />
                       </div>
-                      <p className="text-neutral-800 mb-1">Drag and drop files here or click to browse</p>
-                      <p className="text-sm text-gray-500">Max file size: 10MB (PDF, JPG, PNG)</p>
+                      <p className="text-neutral-700 mb-2 font-medium">Drag and drop files here or click to browse</p>
+                      <p className="text-sm text-neutral-500">Max file size: 10MB (PDF, JPG, PNG)</p>
                       <input 
                         type="file" 
                         id="fileUpload" 
@@ -258,17 +309,17 @@ export default function ContactSection() {
                     </div>
                     
                     {uploadedFiles.length > 0 && (
-                      <div className="mt-2 text-sm space-y-1">
+                      <div className="mt-4 space-y-2">
                         {uploadedFiles.map((file, index) => {
                           const fileSize = (file.size / 1024 / 1024).toFixed(2); // MB
                           return (
-                            <div key={index} className="flex items-center justify-between py-1">
-                              <span className="text-gray-700">{file.name} ({fileSize} MB)</span>
+                            <div key={index} className="flex items-center justify-between py-3 px-4 bg-accent/5 rounded-lg border border-accent/20">
+                              <span className="text-neutral-700 font-medium">{file.name} ({fileSize} MB)</span>
                               <Button 
                                 type="button" 
                                 variant="ghost" 
                                 size="sm" 
-                                className="text-red-500 hover:text-red-700 h-6 p-0"
+                                className="text-red-500 hover:text-red-700 hover:bg-red-50 h-8 w-8 p-0 rounded-full"
                                 onClick={() => handleFileDelete(index)}
                               >
                                 <X className="h-4 w-4" />
@@ -284,15 +335,15 @@ export default function ContactSection() {
                     control={form.control}
                     name="consent"
                     render={({ field }) => (
-                      <FormItem className="flex items-start space-x-2">
+                      <FormItem className="flex items-start space-x-3">
                         <FormControl>
                           <Checkbox 
                             checked={field.value} 
                             onCheckedChange={field.onChange}
-                            className="mt-1"
+                            className="mt-1 border-accent data-[state=checked]:bg-accent data-[state=checked]:border-accent"
                           />
                         </FormControl>
-                        <div className="text-sm text-gray-600 pt-0.5">
+                        <div className="text-sm text-neutral-600 leading-relaxed">
                           I consent to having this website store my submitted information so they can respond to my inquiry.
                         </div>
                       </FormItem>
@@ -300,15 +351,15 @@ export default function ContactSection() {
                   />
                   
                   <Button 
-                    type="submit"
-                    className="bg-primary hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-lg transition-all transform hover:scale-105"
+                    type="submit" 
                     disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent/70 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-[1.02] shadow-lg hover:shadow-xl text-lg"
                   >
-                    {isSubmitting ? "Submitting..." : "Submit Form"}
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </Form>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

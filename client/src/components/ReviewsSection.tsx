@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
 
 type Review = {
   initials: string;
@@ -55,97 +55,161 @@ export default function ReviewsSection() {
     return () => clearInterval(interval);
   }, []);
 
+  const renderStars = (rating: number) => {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+    
+    return (
+      <div className="flex items-center space-x-1">
+        {[...Array(fullStars)].map((_, i) => (
+          <Star key={i} className="h-5 w-5 fill-accent text-accent" />
+        ))}
+        {hasHalfStar && (
+          <div className="relative">
+            <Star className="h-5 w-5 text-neutral-300" />
+            <div className="absolute inset-0 overflow-hidden w-1/2">
+              <Star className="h-5 w-5 fill-accent text-accent" />
+            </div>
+          </div>
+        )}
+        {[...Array(5 - Math.ceil(rating))].map((_, i) => (
+          <Star key={`empty-${i}`} className="h-5 w-5 text-neutral-300" />
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <section className="bg-white section-padding">
+    <section className="bg-gradient-to-br from-white via-neutral-50 to-white section-padding">
       <div className="container">
-        <motion.div
-          className="max-w-3xl mx-auto text-center mb-12"
+        <motion.div 
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold font-heading text-primary mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold font-heading text-primary mb-6">
             What Clients Are Saying
           </h2>
-          <p className="text-lg text-neutral-800">
-            Real experiences from people who have transformed their nutrition and health.
+          <p className="text-xl text-neutral-700 leading-relaxed max-w-3xl mx-auto">
+            Real stories from people who have transformed their health through personalized nutrition therapy.
           </p>
         </motion.div>
         
-        <div className="max-w-5xl mx-auto relative">
-          {/* Testimonials Carousel */}
-          <div className="reviews-carousel">
-            {reviews.map((review, index) => (
-              <motion.div
-                key={index}
-                className={`${currentSlide === index ? 'block' : 'hidden'}`}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="bg-neutral-200 rounded-xl p-6 md:p-8 shadow-md">
-                  <div className="flex flex-col md:flex-row items-center text-center md:text-left">
-                    <div className="md:w-1/4 mb-4 md:mb-0">
-                      <div className="w-20 h-20 rounded-full bg-gray-300 mx-auto md:mx-0 flex items-center justify-center text-2xl text-primary font-bold">
-                        {review.initials}
-                      </div>
+        <div className="max-w-5xl mx-auto">
+          <div className="relative">
+            <motion.div 
+              className="bg-white rounded-2xl shadow-xl p-10 md:p-12 border border-accent/10"
+              key={currentSlide}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Quote Icon */}
+              <div className="flex justify-center mb-8">
+                <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent/80 rounded-full flex items-center justify-center">
+                  <Quote className="h-8 w-8 text-white" />
+                </div>
+              </div>
+              
+              {/* Review Content */}
+              <div className="text-center">
+                <blockquote className="text-xl md:text-2xl text-neutral-700 leading-relaxed mb-8 italic">
+                  "{reviews[currentSlide].quote}"
+                </blockquote>
+                
+                <div className="flex flex-col items-center space-y-4">
+                  {/* Stars */}
+                  <div className="flex justify-center">
+                    {renderStars(reviews[currentSlide].stars)}
+                  </div>
+                  
+                  {/* Client Info */}
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+                      <span className="text-white font-bold text-lg">
+                        {reviews[currentSlide].initials}
+                      </span>
                     </div>
-                    <div className="md:w-3/4 md:pl-6">
-                      <div className="flex mb-3 justify-center md:justify-start">
-                        {Array.from({ length: Math.floor(review.stars) }).map((_, i) => (
-                          <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                        ))}
-                        {review.stars % 1 !== 0 && (
-                          <div className="relative">
-                            <Star className="w-5 h-5 text-yellow-400" />
-                            <div className="absolute inset-0 overflow-hidden w-1/2">
-                              <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                            </div>
-                          </div>
-                        )}
+                    <div className="text-left">
+                      <div className="font-bold text-primary text-lg">
+                        {reviews[currentSlide].name}
                       </div>
-                      <blockquote className="text-lg italic mb-4">{review.quote}</blockquote>
-                      <cite className="font-medium block">— {review.name}, {review.duration}</cite>
+                      <div className="text-accent font-medium text-sm">
+                        {reviews[currentSlide].duration}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            ))}
+              </div>
+            </motion.div>
+            
+            {/* Navigation Buttons */}
+            <div className="flex justify-center items-center mt-8 space-x-4">
+              <Button
+                onClick={prevSlide}
+                variant="outline"
+                size="sm"
+                className="w-12 h-12 rounded-full border-2 border-accent/30 hover:border-accent hover:bg-accent/10 transition-all"
+              >
+                <ChevronLeft className="h-5 w-5 text-accent" />
+              </Button>
+              
+              {/* Dots Indicator */}
+              <div className="flex space-x-2">
+                {reviews.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === currentSlide 
+                        ? 'bg-accent shadow-lg' 
+                        : 'bg-neutral-300 hover:bg-accent/50'
+                    }`}
+                  />
+                ))}
+              </div>
+              
+              <Button
+                onClick={nextSlide}
+                variant="outline"
+                size="sm"
+                className="w-12 h-12 rounded-full border-2 border-accent/30 hover:border-accent hover:bg-accent/10 transition-all"
+              >
+                <ChevronRight className="h-5 w-5 text-accent" />
+              </Button>
+            </div>
           </div>
           
-          {/* Navigation Arrows */}
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute top-1/2 -translate-y-1/2 left-0 md:-left-12 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md focus:outline-none z-10"
-            onClick={prevSlide}
+          {/* Call to Action */}
+          <motion.div 
+            className="text-center mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <ArrowLeft className="h-5 w-5 text-primary" />
-          </Button>
-          
-          <Button
-            variant="outline"
-            size="icon"
-            className="absolute top-1/2 -translate-y-1/2 right-0 md:-right-12 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-md focus:outline-none z-10"
-            onClick={nextSlide}
-          >
-            <ArrowRight className="h-5 w-5 text-primary" />
-          </Button>
-          
-          {/* Pagination Dots */}
-          <div className="flex justify-center space-x-2 mt-8">
-            {reviews.map((_, index) => (
-              <button
-                key={index}
-                className={`w-3 h-3 rounded-full ${
-                  currentSlide === index ? "bg-primary" : "bg-gray-300"
-                }`}
-                onClick={() => setCurrentSlide(index)}
-              />
-            ))}
-          </div>
+            <div className="bg-gradient-to-r from-accent/10 via-primary/5 to-accent/10 rounded-2xl p-8 border border-accent/20">
+              <h3 className="text-2xl font-bold font-heading text-primary mb-4">
+                Ready to Start Your Own Success Story?
+              </h3>
+              <p className="text-neutral-700 mb-6 text-lg leading-relaxed">
+                Join hundreds of clients who have transformed their health through personalized nutrition therapy.
+              </p>
+              <Button 
+                className="bg-gradient-to-r from-accent to-accent/80 hover:from-accent/90 hover:to-accent/70 text-white font-bold py-4 px-8 rounded-xl transition-all transform hover:scale-105 shadow-lg hover:shadow-xl text-lg"
+                onClick={() => {
+                  const bookingSection = document.getElementById('booking');
+                  if (bookingSection) {
+                    bookingSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                Book Your Free Consultation
+              </Button>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
