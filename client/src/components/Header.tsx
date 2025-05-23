@@ -49,9 +49,16 @@ export default function Header({ sections, onNavigate }: HeaderProps) {
                 e.preventDefault();
                 handleNavClick(sections[0].ref);
               }}
-              className="text-primary font-heading font-bold text-xl md:text-2xl"
+              className="flex items-center space-x-2"
             >
-              Generational Nutrition LLC
+              <img 
+                src="/images/generational-nutrition-logo.png" 
+                alt="Generational Nutrition LLC Logo" 
+                className="h-8 w-8 object-contain"
+              />
+              <span className="text-primary font-heading font-bold text-xl md:text-2xl">
+                Generational Nutrition LLC
+              </span>
             </a>
           </div>
           
