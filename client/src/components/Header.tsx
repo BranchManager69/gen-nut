@@ -52,9 +52,9 @@ export default function Header({ sections, onNavigate }: HeaderProps) {
               className="flex items-center space-x-2"
             >
               <img 
-                src="/images/generational-nutrition-logo.png" 
+                src="@logo.png" 
                 alt="Generational Nutrition LLC Logo" 
-                className="h-8 w-8 object-contain"
+                className="h-12 w-12 object-contain"
               />
               <span className="text-primary font-heading font-bold text-xl md:text-2xl">
                 Generational Nutrition LLC
