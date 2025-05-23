@@ -121,29 +121,23 @@ export default function HeroSection({ onBookNow }: HeroSectionProps) {
 
                 <Button
                   onClick={onBookNow}
+                  variant="outline"
                   size="lg"
-                  className="w-full py-4 px-6 text-lg font-semibold bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  className="w-full justify-start text-left py-4 px-6 text-lg font-medium border-2 border-primary hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
                 >
                   Book Consultation
                 </Button>
 
-              </div>
-            </motion.div>
+                <Button
+                  onClick={handleContactClick}
+                  variant="outline"
+                  size="lg"
+                  className="w-full justify-start text-left py-4 px-6 text-lg font-medium border-2 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all duration-300"
+                >
+                  Contact Us!
+                </Button>
 
-            {/* Contact Us */}
-            <motion.div 
-              className="mt-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.2, duration: 0.6 }}
-            >
-              <Button
-                onClick={handleContactClick}
-                variant="ghost"
-                className="text-primary hover:text-primary/80 font-medium text-lg underline decoration-2 underline-offset-4"
-              >
-                Contact Us!
-              </Button>
+              </div>
             </motion.div>
           </motion.div>
         </div>
