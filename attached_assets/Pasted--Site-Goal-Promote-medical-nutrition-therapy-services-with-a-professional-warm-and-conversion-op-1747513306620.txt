@@ -1,0 +1,118 @@
+🔷 Site Goal
+Promote medical nutrition therapy services with a professional, warm, and conversion-optimized experience. Core goals:
+
+Explain your approach
+
+Book free consultations
+
+Collect leads via contact + newsletter forms
+
+Build trust with visuals and reviews
+
+🧱 One-Page Structure
+Each bullet = a scrollable section in the single-page layout.
+
+1. Header
+Sticky top nav bar with anchor links:
+
+css
+Copy
+Edit
+[ Home ] [ Approach ] [ Method ] [ Book ] [ Gallery ] [ Reviews ] [ Contact ]
+2. Hero Section (Home)
+Business name/logo: “Generational Nutrition LLC”
+
+Tagline or intro sentence
+
+Full-width image or clean graphic
+
+CTA Button: “Book Free Consultation” → scrolls to booking section
+
+3. Approach Section
+Title: “Medical Nutrition Therapy”
+
+Brief paragraph or 3 bullets about your philosophy/approach
+
+CTA Button: “Learn More About Me” (optional scroll to About section or expand box)
+
+4. Consulting Method Section
+Title: “My Consulting Method”
+
+Subtitle: “Take an Assessment”
+
+3-Step Framework displayed as cards or rows:
+
+Identify
+
+Generate & Establish
+
+Refine
+
+5. Booking Section
+Title: “Book a Free 15-Minute Consultation”
+
+Calendar popup or inline embed (e.g. Calendly, TidyCal, etc.)
+
+Shows available time slots
+
+Optional: Dropdown to choose a service type or leave a note
+
+6. Gallery Section
+Title: “Snapshots”
+
+3+ placeholder image boxes (can be photos of you, clients, meals, etc.)
+
+7. Newsletter Signup
+Title: “Stay in the Loop”
+
+Inputs:
+
+First Name
+
+Last Name
+
+Email
+
+CTA: “Subscribe Now”
+
+8. Reviews Section
+Title: “What Clients Are Saying”
+
+Carousel or grid of testimonials:
+
+Name (or initials), quote, optional headshot or stars
+
+9. Contact Form
+Title: “Let’s Connect”
+
+Inputs:
+
+Name
+
+Email
+
+Phone
+
+Upload field (optional, e.g. doctor referral or forms)
+
+CTA: “Submit Form”
+
+10. Footer
+LLC Info
+
+Optional links: Privacy Policy, Instagram, etc.
+
+🛠️ Technical Suggestions
+Framework: React + Vite
+
+Styling: TailwindCSS
+
+Form Handling: react-hook-form
+
+Booking Tool: Embed Calendly or similar
+
+Hosting: Vercel, Netlify, or Cloudflare Pages
+
+Email: Use Buttondown or Mailchimp for newsletter capture
+
+Form backend: Formspree, Netlify Forms, or simple backend function
