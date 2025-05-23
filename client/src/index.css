@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import modern fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
 :root {
   --background: 0 0% 98%;
   --foreground: 20 14.3% 4.1%;
@@ -13,20 +16,33 @@
   --card-foreground: 20 14.3% 4.1%;
   --border: 20 5.9% 90%;
   --input: 20 5.9% 90%;
-  --primary: 25 95% 50%;
+  
+  /* Orange + Green Color Scheme */
+  --primary: 25 95% 45%;        /* Dark Orange */
   --primary-foreground: 0 0% 100%;
-  --secondary: 15 100% 65%;
+  --secondary: 30 100% 65%;     /* Light Orange */ 
   --secondary-foreground: 0 0% 100%;
-  --accent: 35 100% 75%;
-  --accent-foreground: 24 9.8% 10%;
+  --accent: 142 76% 55%;        /* Fresh Green */
+  --accent-foreground: 0 0% 100%;
+  
+  /* Method Section Custom Colors */
+  --method-dark-orange: 20 90% 40%;    /* Step 1: Dark Orange */
+  --method-light-orange: 30 95% 60%;   /* Step 2: Light Orange */
+  --method-light-green: 142 70% 60%;   /* Step 3: Light Green */
+  
+  /* Hover variants */
+  --method-dark-orange-hover: 20 90% 35%;
+  --method-light-orange-hover: 30 95% 55%; 
+  --method-light-green-hover: 142 70% 55%;
+  
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 60 9.1% 97.8%;
   --ring: 20 14.3% 4.1%;
   --radius: 0.5rem;
 
-  --chart-1: 25 95% 50%;
-  --chart-2: 15 100% 65%;
-  --chart-3: 35 100% 75%;
+  --chart-1: 25 95% 45%;
+  --chart-2: 30 100% 65%;
+  --chart-3: 142 76% 55%;
   --chart-4: 45 90% 85%;
   --chart-5: 10 80% 80%;
 }
@@ -42,12 +58,12 @@
   --card-foreground: 0 0% 98%;
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
-  --primary: 207 90% 54%;
-  --primary-foreground: 211 100% 99%;
-  --secondary: 150 60% 40%;
-  --secondary-foreground: 0 0% 98%;
-  --accent: 28 100% 71%;
-  --accent-foreground: 0 0% 98%;
+  --primary: 25 95% 55%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 142 76% 65%;
+  --secondary-foreground: 0 0% 100%;
+  --accent: 30 100% 70%;
+  --accent-foreground: 0 0% 100%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 98%;
   --ring: 240 4.9% 83.9%;
@@ -75,6 +91,31 @@
   .section-padding {
     @apply py-20 md:py-24;
   }
+  
+  /* Method Section Custom Classes */
+  .method-step-1 {
+    background-color: hsl(var(--method-dark-orange));
+  }
+  
+  .method-step-1:hover {
+    background-color: hsl(var(--method-dark-orange-hover));
+  }
+  
+  .method-step-2 {
+    background-color: hsl(var(--method-light-orange));
+  }
+  
+  .method-step-2:hover {
+    background-color: hsl(var(--method-light-orange-hover));
+  }
+  
+  .method-step-3 {
+    background-color: hsl(var(--method-light-green));
+  }
+  
+  .method-step-3:hover {
+    background-color: hsl(var(--method-light-green-hover));
+  }
 }
 
 @layer components {
@@ -83,28 +124,13 @@
   }
 }
 
-/* Font families */
-@font-face {
-  font-family: 'Quicksand';
-  font-style: normal;
-  font-weight: 400 700;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/quicksand/v30/6xKtdSZaM9iE8KbpRA_hK1QNYuDyPw.woff2) format('woff2');
-}
-
-@font-face {
-  font-family: 'Raleway';
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-  src: url(https://fonts.gstatic.com/s/raleway/v28/1Ptxg8zYS_SKggPN4iEgvnHyvveLxVvaorCIPrEVIT9d0c8.woff2) format('woff2');
-}
-
+/* Modern Font Classes */
 .font-heading {
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-weight: 600;
 }
 
 .font-body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
 }
